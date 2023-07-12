@@ -16,7 +16,7 @@
       android:scaleType="centerCrop"
       android:rotation="210"
       android:translationX="36dp"
-      android:translationY="-60dp"
+      android:translationY="-80dp"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"/>
@@ -29,30 +29,133 @@
       android:scaleType="centerCrop"
       android:rotation="210"
       android:translationX="28dp"
-      android:translationY="-40dp"
+      android:translationY="-60dp"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"/>
 
   <ImageView
+      android:id="@+id/login_img_logo"
       android:src="@drawable/ic_compras"
       android:layout_width="100dp"
       android:layout_height="100dp"
+      android:layout_marginTop="150dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/img_wave"/>
+      app:layout_constraintTop_toTopOf="parent"/>
 
-  <LinearLayout
-      app:layout_constraintTop_toBottomOf="@id/img_wave2"
-      android:orientation="vertical"
+  <androidx.cardview.widget.CardView
+      android:id="@+id/container_cardVIew"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginTop="10dp"
+      app:cardCornerRadius="4dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/login_img_logo">
 
-    <TextView
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/login_img_logo"
+        android:orientation="vertical"
+        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/app_name"
-        android:textAlignment="center"/>
-  </LinearLayout>
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="4dp"
+          android:fontFamily="@font/damion"
+          android:textSize="@dimen/large_title"
+          android:textColor="@android:color/black"
+          android:text="@string/app_name"
+          android:textAlignment="center" />
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          android:layout_gravity="center"
+          android:fontFamily="@font/carter_one"
+          android:textSize="@dimen/normal_title"
+          android:textColor="@android:color/black"
+          android:text="@string/enter_you_account"
+          android:textAlignment="center" />
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#DCDCDC"
+            android:drawableEnd="@drawable/ic_baseline_email_24"/>
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:hint="@string/password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#DCDCDC"
+            android:drawableEnd="@drawable/ic_baseline_lock_24"/>
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <TextView
+          android:text="@string/forgot_pass"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_gravity="end"/>
+      
+      <com.google.android.material.button.MaterialButton
+          android:text="@string/btn_login"
+          android:fontFamily="@font/carter_one"
+          android:layout_margin="32dp"
+          android:layout_width="match_parent"
+          android:textColor="@android:color/white"
+          android:background="@drawable/button_primary"
+          android:layout_height="50dp"/>
+    </LinearLayout>
+
+  </androidx.cardview.widget.CardView>
+
+  <TextView
+      android:id="@+id/login_txt_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:fontFamily="@font/carter_one"
+      android:textSize="@dimen/normal_text"
+      android:text="@string/dont_have_account"
+      android:textStyle="bold"
+      app:layout_constraintHorizontal_bias="0.8"
+      app:layout_constraintEnd_toStartOf="@+id/login_txt_click"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/container_cardVIew" />
+
+  <TextView
+      android:id="@+id/login_txt_click"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="60dp"
+      android:fontFamily="@font/carter_one"
+      android:text="@string/register_now"
+      android:textColor="@color/colorPrimary"
+      android:textSize="@dimen/normal_text"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@id/login_txt_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

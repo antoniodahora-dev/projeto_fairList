@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Fair List</string>
+    <string name="enter_you_account">Entre com a sua conta</string>
+    <string name="email">Email*</string>
+    <string name="password">Senha*</string>
+    <string name="forgot_pass">Esqueceu sua senha?</string>
+    <string name="btn_login">Login</string>
+    <string name="dont_have_account">Não possui conta?</string>
+    <string name="register_now">Cadastrar Agora</string>
 </resources>

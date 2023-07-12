@@ -27,7 +27,7 @@
             android:paddingEnd="8dp"
             android:text="Açai no Pote"
             android:textSize="@dimen/normal_title"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toStartOf="@id/item_img_more"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
