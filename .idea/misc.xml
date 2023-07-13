@@ -8,11 +8,14 @@
         <entry key="app/src/main/res/drawable/button_primary.xml" value="0.15555555555555556" />
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_more_horiz_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_compras.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/drawable/ic_local_mall_fill0_wght400_grad0_opsz48.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_wave.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.14" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.16" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.25" />
       </map>
     </option>

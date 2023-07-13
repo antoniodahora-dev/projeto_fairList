@@ -7,4 +7,10 @@
     <string name="btn_login">Login</string>
     <string name="dont_have_account">Não possui conta?</string>
     <string name="register_now">Cadastrar Agora</string>
+    <string name="name">Nome*</string>
+    <string name="terms_text"><u>Li e aceito os termos e condições</u></string>
+    <string name="already_account">Já possui uma conta?</string>
+    <string name="login">Login</string>
+    <string name="email_and_password_incorrect">Campos inválidos.</string>
+    <string name="invalid_fields">Email ou senha invalido.</string>
 </resources>
