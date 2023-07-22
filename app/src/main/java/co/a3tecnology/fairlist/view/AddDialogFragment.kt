@@ -14,6 +14,7 @@ import co.a3tecnology.fairlist.App
 import co.a3tecnology.fairlist.R
 import co.a3tecnology.fairlist.model.AddRequest
 import co.a3tecnology.fairlist.model.AddedResponse
+import co.a3tecnology.fairlist.model.Result
 import co.a3tecnology.fairlist.network.RemoteDataSource
 import co.a3tecnology.fairlist.util.NetworkCheck
 import kotlinx.android.synthetic.main.dialog_create.*
@@ -62,13 +63,23 @@ class AddDialogFragment : DialogFragment() {
                    null
 
                val priority = save_dialog_spinner.selectedItemPosition
-               remoteDataSource.addItem(AddRequest(title, desc, priority)) { item, error ->
-//                   activity?.runOnUiThread {
-                       if (item != null) {
-                            onItemAdded(item)
-                       } else if (error != null ){
-                            onItemAddedFailed(error.message ?: "" )
+               remoteDataSource.addItem(AddRequest(title, desc, priority)) { result -> //ao invés de: item, error ->
+                   when(result) {
+                       is Result.Success -> {
+                           result.data?.let { onItemAdded(it) }
                        }
+
+                       is Result.Failure -> {
+                           result.error?.message?.let { onItemAddedFailed(it) }
+                       }
+                   }
+
+//                   activity?.runOnUiThread {
+//                       if (item != null) {
+//                            onItemAdded(item)
+//                       } else if (error != null ){
+//                            onItemAddedFailed(error.message ?: "" )
+//                       }
 //                   }
                }
 

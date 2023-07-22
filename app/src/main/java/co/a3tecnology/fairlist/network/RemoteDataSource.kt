@@ -164,7 +164,8 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.start()
     }
 
-    fun  addItem(addRequest: AddRequest, onResponse: (AddedResponse?, Throwable?) -> Unit) {
+    // No lugar do AddedResponse?, Throwable? -  vamos utilizar a class celada Result
+    fun  addItem(addRequest: AddRequest, onResponse: (Result<AddedResponse?>) -> Unit) {
         // usando padrão retrofit
 //        val body = Gson().toJson(addRequest)
 //                .toRequestBody("application/json; charset=UTF-8".toMediaType())
@@ -180,15 +181,19 @@ class RemoteDataSource(private val apiService: ApiService) {
 //                    val message = response.body()?.string()
 //                    val res = Gson().fromJson(message, AddedResponse::class.java)
 //                    onResponse(res, null)
-                    onResponse(response.body(), null)
+//                    onResponse(response.body(), null)
+
+                    onResponse(Result.Success(response.body()))
                 } else {
                    val message = response.errorBody()?.string()
-                   onResponse(null, RuntimeException(message))
+//                   onResponse(null, RuntimeException(message))
+                    onResponse(Result.Failure(RuntimeException(message)))
                 }
             }
 
             override fun onFailure(call: Call<AddedResponse>, t: Throwable) {
-                onResponse(null, t)
+//                onResponse(null, t)
+                onResponse(Result.Failure(t))
             }
         })
 //        Thread {
