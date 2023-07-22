@@ -3,14 +3,18 @@ package co.a3tecnology.fairlist.view
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import co.a3tecnology.fairlist.App
 import co.a3tecnology.fairlist.R
 import co.a3tecnology.fairlist.model.LoginRequest
 import co.a3tecnology.fairlist.model.RegisterRequest
 import co.a3tecnology.fairlist.network.RemoteDataSource
+import co.a3tecnology.fairlist.util.NetworkCheck
 import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.showProgress
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -26,9 +30,12 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private val remoteDataSource: RemoteDataSource by lazy {
-        RemoteDataSource()
+        RemoteDataSource(App.apiService)
     }
 
+    private val networkCheck by lazy {
+        NetworkCheck(ContextCompat.getSystemService(this, ConnectivityManager::class.java)!!)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -57,16 +64,27 @@ class SignUpActivity : AppCompatActivity() {
         val email = register_edt_email.text.toString()
         val password = register_edt_password.text.toString()
 
-        remoteDataSource.register(RegisterRequest(name, email, password)) {token, throwable ->
-            runOnUiThread {
-                if (token != null) {
-                    MainActivity.launch(this@SignUpActivity)
-                } else {
-                    register_btn.hideProgress(R.string.register_now)
-                    Toast.makeText(
-                        this@SignUpActivity, R.string.register_now,
-                        Toast.LENGTH_LONG
-                    ).show()
+        networkCheck.performActionIfConnected {
+            remoteDataSource.register(RegisterRequest(name, email, password)) {token, throwable ->
+                runOnUiThread {
+                    if (token != null) {
+                        MainActivity.launch(this@SignUpActivity)
+                    } else {
+                        register_btn.hideProgress(R.string.register_now)
+
+                        if (throwable != null) {
+
+                            Toast.makeText(
+                                    this, throwable.message, Toast.LENGTH_LONG).show()
+
+                        } else {
+                            Toast.makeText(
+                                    this@SignUpActivity, R.string.register_now,
+                                    Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
                 }
             }
         }

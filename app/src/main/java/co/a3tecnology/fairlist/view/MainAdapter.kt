@@ -28,6 +28,12 @@ class MainAdapter(
 
     override fun getItemCount(): Int = list.size
 
+    fun add(itemResponse: ItemResponse) {
+        list.add(itemResponse)
+        notifyItemInserted(list.size -1)
+
+    }
+
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun  bind(itemResponse: ItemResponse) {
             with(itemView) {

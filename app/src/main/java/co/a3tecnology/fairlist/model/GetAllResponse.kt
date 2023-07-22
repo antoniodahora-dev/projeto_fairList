@@ -6,7 +6,7 @@ data class GetAllResponse(
 
 data class ItemResponse(
     val title: String,
-    val desc: String,
+    val desc: String? = null,
     val date: Long,
     val type: Int
 )

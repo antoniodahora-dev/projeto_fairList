@@ -2,6 +2,7 @@ package co.a3tecnology.fairlist
 
 import android.app.Application
 import android.content.Context
+import co.a3tecnology.fairlist.network.services
 
 private const val KEY_PREFERENCS = "farList_pref"
 
@@ -23,6 +24,8 @@ class App : Application() {
         }
 
         fun getToken() = preferences.getString(KEY_TOKEN, null)
+
+        val apiService by lazy { services() }
     }
 
     override fun onCreate() {

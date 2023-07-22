@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/save_dialog_txt_title"
+        android:text="@string/register_product"
+        android:textSize="@dimen/large_title"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/edt_dialog_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="@string/title_text_hint"
+        android:layout_marginBottom="12dp"
+        android:inputType="text"/>
+
+
+    <EditText
+        android:id="@+id/edt_dialog_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="@string/desc_text_hint"
+        android:layout_marginBottom="12dp"
+        android:inputType="text"/>
+
+    <Spinner
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/save_dialog_spinner"
+        android:entries="@array/priority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn__dialog_salvar"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:text="@string/save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
