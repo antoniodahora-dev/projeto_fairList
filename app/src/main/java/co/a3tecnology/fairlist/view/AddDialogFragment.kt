@@ -57,12 +57,13 @@ class AddDialogFragment : DialogFragment() {
        if (validateForm()) {
            networkCheck.performActionIfConnected {
                val title = edt_dialog_product.text.toString()
-               val desc: String? = if ((!edt_dialog_desc.text.toString().isBlank()))
+               val desc: String? = if (!edt_dialog_desc.text.toString().isBlank())
                    edt_dialog_desc.text.toString()
                else
                    null
 
                val priority = save_dialog_spinner.selectedItemPosition
+
                remoteDataSource.addItem(AddRequest(title, desc, priority)) { result -> //ao invés de: item, error ->
                    when(result) {
                        is Result.Success -> {

@@ -13,6 +13,7 @@ import co.a3tecnology.fairlist.App
 import co.a3tecnology.fairlist.R
 import co.a3tecnology.fairlist.model.LoginRequest
 import co.a3tecnology.fairlist.model.RegisterRequest
+import co.a3tecnology.fairlist.model.Result
 import co.a3tecnology.fairlist.network.RemoteDataSource
 import co.a3tecnology.fairlist.util.NetworkCheck
 import com.github.razir.progressbutton.hideProgress
@@ -65,27 +66,75 @@ class SignUpActivity : AppCompatActivity() {
         val password = register_edt_password.text.toString()
 
         networkCheck.performActionIfConnected {
-            remoteDataSource.register(RegisterRequest(name, email, password)) {token, throwable ->
-                runOnUiThread {
-                    if (token != null) {
-                        MainActivity.launch(this@SignUpActivity)
-                    } else {
-                        register_btn.hideProgress(R.string.register_now)
+            remoteDataSource.register(RegisterRequest(name, email, password)) { result ->                    //token, throwable ->
 
-                        if (throwable != null) {
+                when(result) {
+                    is Result.Success -> {
+                        remoteDataSource.login(LoginRequest(email, password)) { result ->
 
-                            Toast.makeText(
-                                    this, throwable.message, Toast.LENGTH_LONG).show()
+                            when(result) {
+                                is Result.Success -> {
+                                    MainActivity.launch(this@SignUpActivity)
+                                }
 
-                        } else {
-                            Toast.makeText(
-                                    this@SignUpActivity, R.string.register_now,
-                                    Toast.LENGTH_LONG
-                            ).show()
+                                is Result.Failure -> {
+                                    register_btn.hideProgress(R.string.register_now)
+
+                                    if (result.error?.message != null) {
+
+                                        Toast.makeText(
+                                            this, result.error.message, Toast.LENGTH_LONG).show()
+
+                                    } else {
+                                        Toast.makeText(
+                                            this@SignUpActivity, R.string.register_now,
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
+                            }
+
                         }
 
                     }
+
+                    is Result.Failure -> {
+                        register_btn.hideProgress(R.string.register_now)
+
+                        if (result.error?.message != null) {
+
+                            Toast.makeText(
+                                this, result.error.message, Toast.LENGTH_LONG).show()
+
+                        } else {
+                            Toast.makeText(
+                                this@SignUpActivity, R.string.register_now,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 }
+
+//                runOnUiThread {
+//                    if (token != null) {
+//                        MainActivity.launch(this@SignUpActivity)
+//                    } else {
+//                        register_btn.hideProgress(R.string.register_now)
+//
+//                        if (throwable != null) {
+//
+//                            Toast.makeText(
+//                                    this, throwable.message, Toast.LENGTH_LONG).show()
+//
+//                        } else {
+//                            Toast.makeText(
+//                                    this@SignUpActivity, R.string.register_now,
+//                                    Toast.LENGTH_LONG
+//                            ).show()
+//                        }
+//
+//                    }
+//                }
             }
         }
     }

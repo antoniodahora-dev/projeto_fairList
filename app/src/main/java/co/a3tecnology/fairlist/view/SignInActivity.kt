@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import co.a3tecnology.fairlist.App
 import co.a3tecnology.fairlist.R
 import co.a3tecnology.fairlist.model.LoginRequest
+import co.a3tecnology.fairlist.model.Result
 import co.a3tecnology.fairlist.network.RemoteDataSource
 import co.a3tecnology.fairlist.util.NetworkCheck
 import com.github.razir.progressbutton.hideProgress
@@ -72,28 +73,50 @@ class SignInActivity : AppCompatActivity() {
 
         networkCheck.performActionIfConnected {
             //simulacao requisao api
-            remoteDataSource.login(LoginRequest(email, password)) { token, throwable ->
+            remoteDataSource.login(LoginRequest(email, password)) { result -> //token, throwable ->
 
-                runOnUiThread{
-                    if(token != null) {
+                when(result) {
+
+                    is Result.Success -> {
                         MainActivity.launch(this@SignInActivity)
-                    } else {
-                        login_btn_send.hideProgress(R.string.btn_login)
+                    }
 
-                        if (throwable != null) {
+                    is Result.Failure -> {
+
+                       login_btn_send.hideProgress(R.string.btn_login)
+
+                        if (result.error?.message != null) {
                             Toast.makeText(
-                                    this@SignInActivity, throwable.message,
-                                    Toast.LENGTH_LONG).show()
+                                this@SignInActivity, result.error.message,
+                                Toast.LENGTH_LONG).show()
                         }
                         else {
                             Toast.makeText(
-                                    this@SignInActivity, R.string.invalid_fields,
-                                    Toast.LENGTH_LONG).show()
+                                this@SignInActivity, R.string.invalid_fields,
+                                Toast.LENGTH_LONG).show()
                         }
                     }
-//                    println(token)
-//                    println(throwable)
                 }
+//                runOnUiThread{
+//                    if(token != null) {
+//
+//                    } else {
+//                        login_btn_send.hideProgress(R.string.btn_login)
+//
+//                        if (throwable != null) {
+//                            Toast.makeText(
+//                                    this@SignInActivity, throwable.message,
+//                                    Toast.LENGTH_LONG).show()
+//                        }
+//                        else {
+//                            Toast.makeText(
+//                                    this@SignInActivity, R.string.invalid_fields,
+//                                    Toast.LENGTH_LONG).show()
+//                        }
+//                    }
+////                    println(token)
+////                    println(throwable)
+//                }
             }
 
         }
