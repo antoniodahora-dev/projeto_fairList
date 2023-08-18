@@ -13,9 +13,11 @@
     <string name="login">Login</string>
     <string name="email_and_password_incorrect">Campos inválidos.</string>
     <string name="invalid_fields">Email ou senha invalido.</string>
-    <string name="register_product">Cadastrar Produto</string>
+    <string name="register_product">Cadastrar Item</string>
     <string name="title_text_hint">Digite o Produto</string>
-    <string name="desc_text_hint">Digite a Descrição</string>
+    <string name="desc_text_hint">Digite a Marca </string>
+    <string name="qtd_text_hint">Digite a Quantidade </string>
+
 
     <string name="low">Baixa</string>
     <string name="medium">Média</string>

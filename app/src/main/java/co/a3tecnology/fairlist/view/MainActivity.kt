@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity(), AddDialogFragment.AddedListener {
                ItemResponse(
                title = addedResponse.title,
                desc = addedResponse.desc,
+               qtd = addedResponse.qtd,
                date = 0,
                type = PriorityColor.values()[addedResponse.priority].getColor()
             )

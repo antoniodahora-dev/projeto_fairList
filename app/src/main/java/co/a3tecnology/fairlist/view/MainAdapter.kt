@@ -39,6 +39,7 @@ class MainAdapter(
             with(itemView) {
                 item_txt_title.text = itemResponse.title
                 item_txt_descricao.text = itemResponse.desc
+                item_txt_qtd.text = itemResponse.qtd
                 item_txt_date.text = itemResponse.date.toString()
 
                val layerDrawable =

@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
 fun client() =
-        OkHttpClient.Builder()
+        OkHttpClient.Builder() // chamadas web
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(HttpLoggingInterceptor().apply {

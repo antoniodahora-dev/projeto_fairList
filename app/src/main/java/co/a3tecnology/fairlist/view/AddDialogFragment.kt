@@ -30,6 +30,7 @@ class AddDialogFragment : DialogFragment() {
                 requireContext(), ConnectivityManager::class.java)!!)
     }
 
+
     private var itemAddedListener: AddedListener? = null
 
     interface AddedListener {
@@ -39,6 +40,7 @@ class AddDialogFragment : DialogFragment() {
     fun setAddedListener(listener: AddedListener) {
         this.itemAddedListener = listener
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -62,9 +64,14 @@ class AddDialogFragment : DialogFragment() {
                else
                    null
 
+               val qtd: String? = if (!edt_dialog_qtd.text.toString().isBlank())
+                   edt_dialog_qtd.text.toString()
+               else
+                   null
+
                val priority = save_dialog_spinner.selectedItemPosition
 
-               remoteDataSource.addItem(AddRequest(title, desc, priority)) { result -> //ao invés de: item, error ->
+               remoteDataSource.addItem(AddRequest(title, desc, qtd, priority)) { result -> //ao invés de: item, error ->
                    when(result) {
                        is Result.Success -> {
                            result.data?.let { onItemAdded(it) }

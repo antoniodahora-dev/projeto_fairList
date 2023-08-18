@@ -30,6 +30,7 @@ class FakeDatabase {
                 ItemResponse(
                     "Açai no Pote",
                     "teste de desc",
+                    "1",
                     Date().time,
                     Color.GREEN)
             )
@@ -38,6 +39,7 @@ class FakeDatabase {
                 ItemResponse(
                     "Sorvete no Pote",
                     "teste de cont",
+                    "1",
                     Date().time,
                     Color.BLUE)
             )
@@ -45,6 +47,7 @@ class FakeDatabase {
                 ItemResponse(
                     "Coca-Cola",
                     "teste de cont",
+                    "1",
                     Date().time,
                     Color.MAGENTA)
             )

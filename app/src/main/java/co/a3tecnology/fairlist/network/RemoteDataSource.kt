@@ -18,7 +18,7 @@ import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
 
-const val BASE_URL = "https://free-fairlist.uc.r.appspot.com/"
+const val BASE_URL = "http://192.168.0.228:8000/"
 
 class RemoteDataSource(private val apiService: ApiService) {
 

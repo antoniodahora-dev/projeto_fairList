@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
@@ -19,9 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:hint="@string/title_text_hint"
         android:layout_marginBottom="12dp"
-        android:inputType="text"/>
+        android:hint="@string/title_text_hint"
+        android:inputType="text"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
     <EditText
@@ -29,17 +31,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:hint="@string/desc_text_hint"
         android:layout_marginBottom="12dp"
-        android:inputType="text"/>
+        android:hint="@string/desc_text_hint"
+        android:inputType="text"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/edt_dialog_qtd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp"
+        android:hint="@string/qtd_text_hint"
+        android:inputType="text"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Spinner
+        android:id="@+id/save_dialog_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="16dp"
-        android:id="@+id/save_dialog_spinner"
         android:entries="@array/priority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/btn__dialog_salvar"

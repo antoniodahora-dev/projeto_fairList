@@ -47,6 +47,17 @@
             app:layout_constraintTop_toBottomOf="@id/item_txt_title" />
 
         <TextView
+            android:id="@+id/item_txt_qtd"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="@dimen/normal_title"
+            android:textColor="@android:color/darker_gray"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_txt_descricao"/>
+
+        <TextView
             android:id="@+id/item_txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
