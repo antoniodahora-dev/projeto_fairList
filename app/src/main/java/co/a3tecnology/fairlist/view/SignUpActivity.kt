@@ -41,11 +41,6 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
         signUp_txt_click.setOnClickListener {
          finish()
         }
@@ -67,7 +62,6 @@ class SignUpActivity : AppCompatActivity() {
 
         networkCheck.performActionIfConnected {
             remoteDataSource.register(RegisterRequest(name, email, password)) { result ->                    //token, throwable ->
-
                 when(result) {
                     is Result.Success -> {
                         remoteDataSource.login(LoginRequest(email, password)) { result ->
@@ -82,8 +76,8 @@ class SignUpActivity : AppCompatActivity() {
 
                                     if (result.error?.message != null) {
 
-                                        Toast.makeText(
-                                            this, result.error.message, Toast.LENGTH_LONG).show()
+                                       Toast.makeText(
+                                           this, result.error.message, Toast.LENGTH_LONG).show()
 
                                     } else {
                                         Toast.makeText(
@@ -114,27 +108,6 @@ class SignUpActivity : AppCompatActivity() {
                         }
                     }
                 }
-
-//                runOnUiThread {
-//                    if (token != null) {
-//                        MainActivity.launch(this@SignUpActivity)
-//                    } else {
-//                        register_btn.hideProgress(R.string.register_now)
-//
-//                        if (throwable != null) {
-//
-//                            Toast.makeText(
-//                                    this, throwable.message, Toast.LENGTH_LONG).show()
-//
-//                        } else {
-//                            Toast.makeText(
-//                                    this@SignUpActivity, R.string.register_now,
-//                                    Toast.LENGTH_LONG
-//                            ).show()
-//                        }
-//
-//                    }
-//                }
             }
         }
     }

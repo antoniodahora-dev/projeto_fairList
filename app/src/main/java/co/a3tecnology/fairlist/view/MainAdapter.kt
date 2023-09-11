@@ -5,6 +5,7 @@ import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import co.a3tecnology.fairlist.R
@@ -12,7 +13,8 @@ import co.a3tecnology.fairlist.model.ItemResponse
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class MainAdapter(
-    var list: MutableList<ItemResponse> = arrayListOf()
+    var list: MutableList<ItemResponse> = arrayListOf(),
+    val onClick: (Long, Int) -> Unit
 ) : RecyclerView.Adapter<MainAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder =
@@ -49,8 +51,21 @@ class MainAdapter(
                 val gradientDrawable: GradientDrawable =
                     layerDrawable.findDrawableByLayerId(R.id.mainDrawable) as GradientDrawable
 
-                gradientDrawable.setStroke(6, itemResponse.type)
+                gradientDrawable.setStroke(6, itemResponse.priority)
                 item_container.background = layerDrawable
+
+                item_img_more.setOnClickListener {
+                    val popup = PopupMenu(itemView.context, it)
+
+                    popup.setOnMenuItemClickListener {
+
+                        onClick.invoke(itemResponse.id, adapterPosition)
+
+                        true
+                    }
+                    popup.inflate(R.menu.menu)
+                    popup.show()
+                }
             }
         }
     }

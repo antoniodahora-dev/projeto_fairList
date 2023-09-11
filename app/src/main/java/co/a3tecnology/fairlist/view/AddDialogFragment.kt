@@ -82,13 +82,6 @@ class AddDialogFragment : DialogFragment() {
                        }
                    }
 
-//                   activity?.runOnUiThread {
-//                       if (item != null) {
-//                            onItemAdded(item)
-//                       } else if (error != null ){
-//                            onItemAddedFailed(error.message ?: "" )
-//                       }
-//                   }
                }
 
            }
@@ -102,7 +95,7 @@ class AddDialogFragment : DialogFragment() {
     private fun validateForm() : Boolean {
         val title = edt_dialog_product.text.toString()
 
-        if (title.isEmpty()) {
+        if (title.isNullOrEmpty()) {
             Toast.makeText(activity, R.string.title_empty, Toast.LENGTH_LONG).show()
             return false
         }

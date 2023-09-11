@@ -24,4 +24,8 @@
     <string name="high">Alta</string>
     <string name="save">Salvar</string>
     <string name="title_empty">Campo não pode ser Vazio.</string>
+    <string name="delete">Excluir</string>
+    <string name="empty_list">Nenhum item encontrado.</string>
+    <string name="update">Editar</string>
+    <string name="create_you_account">Crie a sua conta</string>
 </resources>

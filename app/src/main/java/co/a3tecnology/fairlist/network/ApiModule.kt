@@ -15,20 +15,18 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
 fun client() =
-        OkHttpClient.Builder() // chamadas web
+        OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
                 })
                 .addInterceptor {
-                    // request sem token
                     val request = it.request()
 
                     if (App.getToken().isNullOrBlank())
                         return@addInterceptor it.proceed(request)
 
-                    // request com token
                     val newRequest = request.newBuilder()
                             .addHeader("Authorization", "Token ${App.getToken()}")
                             .build()
@@ -37,14 +35,11 @@ fun client() =
                 }
                 .build()
 
-//fun gson(): Gson = GsonBuilder().create()
 
 fun retrofit() : Retrofit =
         Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client())
-//                .addConverterFactory(GsonConverterFactory.create(gson())) // GSON
-//                .addConverterFactory(MoshiConverterFactory.create().asLenient()) // Moshi
                 .addConverterFactory(
                         Json {
                             ignoreUnknownKeys = true

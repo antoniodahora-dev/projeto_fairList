@@ -4,14 +4,21 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import co.a3tecnology.fairlist.App
 import co.a3tecnology.fairlist.R
 import co.a3tecnology.fairlist.model.AddedResponse
 import co.a3tecnology.fairlist.model.ItemResponse
 import co.a3tecnology.fairlist.model.PriorityColor
+import co.a3tecnology.fairlist.model.Result
 import co.a3tecnology.fairlist.network.RemoteDataSource
+import co.a3tecnology.fairlist.util.formatted
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.list_item.*
 
 class MainActivity : AppCompatActivity(), AddDialogFragment.AddedListener {
 
@@ -31,13 +38,18 @@ class MainActivity : AppCompatActivity(), AddDialogFragment.AddedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = MainAdapter()
+        adapter = MainAdapter { id, position ->
+
+            deleteItemClick(id, position)
+        }
+
         main_rv.adapter = adapter
 
         val token = App.getToken()
         if (token == null) {
             SignInActivity.launch(this)
         } else {
+            progress_main.visibility = View.VISIBLE
             fab_main.setOnClickListener {
                 val dialog = AddDialogFragment()
                 dialog.setAddedListener(this)
@@ -47,28 +59,73 @@ class MainActivity : AppCompatActivity(), AddDialogFragment.AddedListener {
 
      }
 
-    override fun onStart() {
-        super.onStart()
-        remoteDataSource.getAll { list, throwable ->
-            runOnUiThread {
-                list?.let {
-                  adapter.list.clear()
-                    adapter.list.addAll(it)
-                    adapter.notifyDataSetChanged()
 
+    private fun deleteItemClick(id: Long, position: Int) {
+        remoteDataSource.delete(id) { result ->
+            when(result) {
+                is Result.Success -> {
+                    adapter.list.removeAt(position)
+                    adapter.notifyItemRemoved(position)
+
+                    if (adapter.list.isEmpty()) {
+                        main_txt_empty_list.visibility = View.VISIBLE
+                    }
                 }
             }
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+            remoteDataSource.getAll { result ->
+                when(result) {
+
+                    is Result.Success -> {
+
+                        result.data?.list?.let {
+
+                            if (it.isEmpty()) {
+                              main_txt_empty_list.visibility = View.VISIBLE
+                            } else {
+                              main_txt_empty_list.visibility = View.GONE
+                              progress_main.visibility = View.GONE
+
+                               adapter.list.clear()
+                                adapter.list.addAll(
+                                    it.map { item ->
+                                        ItemResponse(
+                                            id = item.id,
+                                            title = item.title,
+                                            desc = item.desc,
+                                            qtd = item.qtd,
+                                            date = item.date.formatted(),
+                                            priority = PriorityColor.values()[item.priority].getColor()
+                                        )
+                                    }
+                                )
+                            }
+                          adapter.notifyDataSetChanged()
+                        }
+                    }
+
+                    is Result.Failure -> {
+                        Toast.makeText(this, result.error?.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+    }
+
     override fun onAdded(addedResponse: AddedResponse) {
+        main_txt_empty_list.visibility = View.GONE
+
        adapter.add(
                ItemResponse(
-               title = addedResponse.title,
-               desc = addedResponse.desc,
-               qtd = addedResponse.qtd,
-               date = 0,
-               type = PriorityColor.values()[addedResponse.priority].getColor()
+                   id = addedResponse.id,
+                   title = addedResponse.title,
+                   desc = addedResponse.desc,
+                   qtd = addedResponse.qtd,
+                   date = addedResponse.date.formatted(),
+                   priority = PriorityColor.values()[addedResponse.priority].getColor()
             )
        )
     }

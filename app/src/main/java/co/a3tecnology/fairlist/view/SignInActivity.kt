@@ -36,19 +36,11 @@ class SignInActivity : AppCompatActivity() {
 
     private val networkCheck by lazy {
         NetworkCheck(ContextCompat.getSystemService(this, ConnectivityManager::class.java)!!)
-//        ContextCompat.getSystemService(this,
-//                ConnectivityManager::class.java)?.let { NetworkCheck(it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-
-        //remove todas a statusBar para que o layout seja visto em toda tela
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
 
         login_txt_click.setOnClickListener {
             SignUpActivity.launch(this@SignInActivity)
@@ -72,9 +64,8 @@ class SignInActivity : AppCompatActivity() {
         val password = login_edt_password.text.toString()
 
         networkCheck.performActionIfConnected {
-            //simulacao requisao api
-            remoteDataSource.login(LoginRequest(email, password)) { result -> //token, throwable ->
 
+            remoteDataSource.login(LoginRequest(email, password)) { result -> //token, throwable ->
                 when(result) {
 
                     is Result.Success -> {
@@ -83,8 +74,7 @@ class SignInActivity : AppCompatActivity() {
 
                     is Result.Failure -> {
 
-                       login_btn_send.hideProgress(R.string.btn_login)
-
+                      login_btn_send.hideProgress(R.string.btn_login)
                         if (result.error?.message != null) {
                             Toast.makeText(
                                 this@SignInActivity, result.error.message,
@@ -97,26 +87,7 @@ class SignInActivity : AppCompatActivity() {
                         }
                     }
                 }
-//                runOnUiThread{
-//                    if(token != null) {
-//
-//                    } else {
-//                        login_btn_send.hideProgress(R.string.btn_login)
-//
-//                        if (throwable != null) {
-//                            Toast.makeText(
-//                                    this@SignInActivity, throwable.message,
-//                                    Toast.LENGTH_LONG).show()
-//                        }
-//                        else {
-//                            Toast.makeText(
-//                                    this@SignInActivity, R.string.invalid_fields,
-//                                    Toast.LENGTH_LONG).show()
-//                        }
-//                    }
-////                    println(token)
-////                    println(throwable)
-//                }
+
             }
 
         }
