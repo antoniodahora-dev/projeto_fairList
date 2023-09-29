@@ -1,8 +1,7 @@
-package co.a3tecnology.fairlist.view
+package co.a3tecnology.fairlist.view.fornecedor
 
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,6 @@ class AddDialogFragment : DialogFragment() {
                 requireContext(), ConnectivityManager::class.java)!!)
     }
 
-
     private var itemAddedListener: AddedListener? = null
 
     interface AddedListener {
@@ -42,6 +40,7 @@ class AddDialogFragment : DialogFragment() {
     }
 
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_create, container)
@@ -51,7 +50,7 @@ class AddDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btn__dialog_salvar.setOnClickListener {
-            saveItem()
+                saveItem()
         }
     }
 
@@ -88,10 +87,13 @@ class AddDialogFragment : DialogFragment() {
        }
     }
 
+
+
     private fun onItemAdded(addedResponse: AddedResponse) {
         itemAddedListener?.onAdded(addedResponse)
         dismiss()
     }
+
     private fun validateForm() : Boolean {
         val title = edt_dialog_product.text.toString()
 
@@ -113,4 +115,5 @@ class AddDialogFragment : DialogFragment() {
     private fun onItemAddedFailed(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
+
 }

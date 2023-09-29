@@ -1,4 +1,4 @@
-package co.a3tecnology.fairlist.view
+package co.a3tecnology.fairlist.view.fornecedor
 
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
@@ -54,7 +54,7 @@ class MainAdapter(
                 gradientDrawable.setStroke(6, itemResponse.priority)
                 item_container.background = layerDrawable
 
-                item_img_more.setOnClickListener {
+                item_img_delete.setOnClickListener {
                     val popup = PopupMenu(itemView.context, it)
 
                     popup.setOnMenuItemClickListener {
@@ -65,6 +65,10 @@ class MainAdapter(
                     }
                     popup.inflate(R.menu.menu)
                     popup.show()
+                }
+
+                item_img_edit.setOnClickListener {
+
                 }
             }
         }

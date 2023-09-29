@@ -60,7 +60,7 @@ class RemoteDataSource(private val apiService: ApiService) {
             })
     }
 
-    fun  addItem(addRequest: AddRequest, onResponse: (Result<AddedResponse?>) -> Unit) {
+    fun addItem(addRequest: AddRequest, onResponse: (Result<AddedResponse?>) -> Unit) {
 
         apiService.addItem(addRequest).enqueue(object : Callback<AddedResponse> {
 
@@ -79,7 +79,8 @@ class RemoteDataSource(private val apiService: ApiService) {
         })
     }
 
-    fun  getAll(onResponse: (Result<GetAllResponse?>) -> Unit) {
+
+    fun getAll(onResponse: (Result<GetAllResponse?>) -> Unit) {
 
         apiService.getItems().enqueue(object : Callback<GetAllResponse> {
 
@@ -108,7 +109,6 @@ class RemoteDataSource(private val apiService: ApiService) {
                     response: Response<ResponseBody>
                 ) {
                     if (response.isSuccessful) {
-
                         onResponse(Result.Success(response.body()))
                     } else {
                         val message = response.errorBody()?.string()

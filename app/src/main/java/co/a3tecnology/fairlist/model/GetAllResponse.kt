@@ -10,10 +10,11 @@ data class GetAllResponse(
 
 @Serializable
 data class ItemResponse(
-    val id: Long,
-    val title: String,
-    val desc: String? = null,
-    @SerialName("amount") val qtd: String? = null,
-    @SerialName("created_date") val date: String,
-    @SerialName("priority") val priority: Int
+    var id: Long,
+    val user: String,
+    var title: String,
+    var desc: String? = null,
+    @SerialName("amount") var qtd: String? = null,
+    @SerialName("created_date") var date: String,
+    @SerialName("priority") var priority: Int
 )

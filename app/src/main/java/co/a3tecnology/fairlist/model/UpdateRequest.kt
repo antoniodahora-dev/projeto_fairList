@@ -3,14 +3,12 @@ package co.a3tecnology.fairlist.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+
 @Serializable
-data class  AddedResponse(
+data class  UpdateRequest(
         val id: Long,
-        val user: String,
         val title: String,
         val desc: String? = null,
         @SerialName("amount") val qtd: String? = null,
-        val priority: Int,
-        @SerialName("created_date") val date: String
-
+        val priority: Int
 )

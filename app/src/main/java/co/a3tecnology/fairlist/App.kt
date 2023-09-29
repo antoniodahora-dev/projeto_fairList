@@ -8,6 +8,7 @@ private const val KEY_PREFERENCS = "farList_pref"
 
 private const val KEY_TOKEN = "farList_token"
 
+
 class App : Application() {
 
     companion object {
@@ -24,6 +25,7 @@ class App : Application() {
         }
 
         fun getToken() = preferences.getString(KEY_TOKEN, null)
+
 
         val apiService by lazy { services() }
     }

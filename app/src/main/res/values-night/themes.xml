@@ -13,4 +13,8 @@
     <style name="corTxtView">
         <item name="android:text">#fff</item>
     </style>
+
+    <style name="cordefundo">
+        <item name="android:background">@color/color_fundoBlack</item>
+    </style>
 </resources>

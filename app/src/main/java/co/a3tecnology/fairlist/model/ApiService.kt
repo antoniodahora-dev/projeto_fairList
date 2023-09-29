@@ -23,7 +23,6 @@ interface ApiService {
     fun deleteItem(@Path("id") id: Long) : Call<ResponseBody>
 
     @PUT("app/items/{id}")
-    fun updateItem(@Body addRequest: AddRequest) : Call<AddedResponse>
-
+    fun updateItem(@Path("id") id: Long) : Call<AddedResponse>
 
 }
