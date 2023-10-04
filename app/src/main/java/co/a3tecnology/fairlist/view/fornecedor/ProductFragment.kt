@@ -1,5 +1,6 @@
 package co.a3tecnology.fairlist.view.fornecedor
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +12,8 @@ import co.a3tecnology.fairlist.R
 import co.a3tecnology.fairlist.model.*
 import co.a3tecnology.fairlist.network.RemoteDataSource
 import co.a3tecnology.fairlist.util.formatted
+import co.a3tecnology.fairlist.view.FragmentAttachListener
 import co.a3tecnology.fairlist.view.login.SignInActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_product.*
 
 class ProductFragment : Fragment(), AddDialogFragment.AddedListener {
@@ -22,32 +23,31 @@ class ProductFragment : Fragment(), AddDialogFragment.AddedListener {
     }
 
     private lateinit var adapter: MainAdapter
-    private val loginResponse: LoginResponse? = null
+    private var fragmentAttachListener: FragmentAttachListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = MainAdapter { id, position ->
-            editDialog()
+//            editDialog()
             deleteItemClick(id, position)
         }
 
         frag_rv.adapter = adapter
 
-//        userName()
-//        val token = App.getToken()
+        val token = App.getToken()
 
-//        if (token == null) {
-//            SignInActivity.launch(requireContext())
-//        } else {
-//            frag_progress_main.visibility = View.VISIBLE
-//
-//            frag_fab_main.setOnClickListener {
-//                val dialog = AddDialogFragment()
-//                dialog.setAddedListener(this)
-//                dialog.show(childFragmentManager, dialog.tag)
-//            }
-//        }
+        if (token == null) {
+            SignInActivity.launch(requireContext())
+        } else {
+            frag_progress_main.visibility = View.VISIBLE
+
+            frag_fab_main.setOnClickListener {
+                val dialog = AddDialogFragment()
+                dialog.setAddedListener(this)
+                dialog.show(childFragmentManager, dialog.tag)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -56,18 +56,12 @@ class ProductFragment : Fragment(), AddDialogFragment.AddedListener {
     }
 
 
-    private fun userName() {
-//        val user = frag_txt_user
-//        user.text = itemResponse?.user
-//        Toast.makeText(context, " Nome de Usuário", Toast.LENGTH_LONG).show()
-    }
-
-    private fun editDialog() {
+//    private fun editDialog() {
 //        item_img_edit.setOnClickListener {
 //            val dialog = AddDialogFragment()
 //            dialog.show(childFragmentManager, dialog.tag)
 //        }
-    }
+//    }
 
 
     private fun deleteItemClick(id: Long, position: Int) {
@@ -126,14 +120,19 @@ class ProductFragment : Fragment(), AddDialogFragment.AddedListener {
                 }
             }
         }
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
+        if (context is FragmentAttachListener) {
+            fragmentAttachListener = context
+        }
     }
 
 
     override fun onAdded(addedResponse: AddedResponse) {
-        frag_txt_empty_list.visibility = View.GONE
-
+      frag_txt_empty_list.visibility = View.GONE
         adapter.add(
             ItemResponse(
                 id = addedResponse.id,

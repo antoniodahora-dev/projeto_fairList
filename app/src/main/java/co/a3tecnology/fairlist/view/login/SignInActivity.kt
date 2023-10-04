@@ -81,7 +81,7 @@ class SignInActivity : AppCompatActivity() {
                       login_btn_send.hideProgress(R.string.btn_login)
                         if (result.error?.message != null) {
                             Toast.makeText(
-                                this@SignInActivity, "Preencher os campos em Branco.",
+                                this@SignInActivity, R.string.invalid_fields,
                                 Toast.LENGTH_LONG).show()
                         }
                         else {

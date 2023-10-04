@@ -50,7 +50,7 @@ class AddDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btn__dialog_salvar.setOnClickListener {
-                saveItem()
+         saveItem()
         }
     }
 

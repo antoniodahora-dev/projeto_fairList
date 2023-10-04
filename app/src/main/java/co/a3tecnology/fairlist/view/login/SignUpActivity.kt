@@ -2,11 +2,15 @@ package co.a3tecnology.fairlist.view.login
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -23,6 +27,7 @@ import com.github.razir.progressbutton.showProgress
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -40,6 +45,7 @@ class SignUpActivity : AppCompatActivity() {
     private val networkCheck by lazy {
         NetworkCheck(ContextCompat.getSystemService(this, ConnectivityManager::class.java)!!)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -59,10 +65,12 @@ class SignUpActivity : AppCompatActivity() {
             if (validateForm()) {
                 register_btn.showProgress { progressColor = Color.WHITE }
                 doRegister()
+                saveDateUser()
             }
         }
 
     }
+
 
     private fun doRegister() {
         val name = register_edt_name.text.toString()
@@ -123,6 +131,18 @@ class SignUpActivity : AppCompatActivity() {
            return false
         }
         return true
+    }
+
+    private fun saveDateUser() {
+        val name = register_edt_name.text.toString()
+
+        val sharedPref = getSharedPreferences(
+            getString(R.string.bd_user), Context.MODE_PRIVATE)
+
+        with (sharedPref.edit()) {
+            putString("nome", name)
+            apply()
+        }
     }
 
 }

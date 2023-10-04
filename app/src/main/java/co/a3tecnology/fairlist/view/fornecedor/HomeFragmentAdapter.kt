@@ -25,7 +25,7 @@ class HomeFragmentAdapter(
 //      holder.bind(list[position])
     }
 
-    override fun getItemCount(): Int = 1
+    override fun getItemCount(): Int = 2
 
     inner class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tituloFonecedor = itemView.findViewById<TextView>(R.id.fornecedor_txt_title)

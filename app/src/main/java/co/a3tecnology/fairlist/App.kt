@@ -8,7 +8,6 @@ private const val KEY_PREFERENCS = "farList_pref"
 
 private const val KEY_TOKEN = "farList_token"
 
-
 class App : Application() {
 
     companion object {

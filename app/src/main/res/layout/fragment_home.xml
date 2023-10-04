@@ -67,9 +67,10 @@
     <TextView
         android:id="@+id/frag_txt_user"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="10dp"
+        android:layout_height="38dp"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:layout_margin="14dp"
         android:text="fulano"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
